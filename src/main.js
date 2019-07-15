@@ -7,8 +7,8 @@ $(function() {
     socket.on('broadcast', (data) => {
         //console.log(data)
 
-        trigger('1,'+String(data.id));
-        trigger('2,'+String(data.id));
+        trigger('1,'+String(data.id), true);
+        trigger('2,'+String(data.id), true);
         triggered();
     });
     
@@ -39,7 +39,7 @@ $(function() {
   if (url.boolean('kiosk')) {
     path += 'kiosk/';
   }
-
+  
   var soundsBuffered = _.after(1, function() {
     if (url.loop && url.loop.match(/(clap|groove)/ig)) {
       new Sound(path + url.loop.replace(/\//ig, '') + '-loop' + filetype, function() {

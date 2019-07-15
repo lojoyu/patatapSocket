@@ -8,6 +8,7 @@ $(function() {
         //console.log(data)
 
         trigger('1,'+String(data.id));
+        trigger('2,'+String(data.id));
         triggered();
     });
     
@@ -21,10 +22,10 @@ $(function() {
 
 
   var container = $('#content'), $window, ui, buttons, width, height,
-    landscape, $hint = $('#hint'), $credits = $('#credits'),
-    mouse = new Two.Vector(), $embed = $('#embed'), embedding = false,
-    interacting = false, $merchandise = $('#merchandise'),
-    merchandising = false, $window = $(window);
+    landscape, $hint = $('#hint'), //$credits = $('#credits'),
+    mouse = new Two.Vector(), /*$embed = $('#embed'), embedding = false,*/
+    interacting = false, /*$merchandise = $('#merchandise'),*/
+    /*merchandising = false, */$window = $(window);
 
   /**
    * Append Sound Generation to Animations
@@ -73,6 +74,7 @@ $(function() {
 
     animations.initializeSound();
 
+    /* comment!
     var hideEmbed = function(e) {
       if (!!$embed.has(e.target).length) {
         return;
@@ -92,10 +94,11 @@ $(function() {
         $embed.find('textarea').select();
         $window.bind('click', hideEmbed);
       });
-    });
+    });*/
 
     var firstRun = true;
 
+    /* comment!
     $('#merchandise-button').click(function(e) {
       e.preventDefault();
       if (firstRun) {
@@ -119,7 +122,7 @@ $(function() {
       embedding = false;
       merchandising = false;
       $merchandise.fadeOut();
-    });
+    });*/
 
     $window
       .bind('resize', function(e) {
@@ -132,11 +135,12 @@ $(function() {
       })
       // Disable scrolling on mobile
       .bind('touchstart touchmove touchend touchcancel', function(e) {
-        if (Sound.enabled && !(merchandising || $(e.target).hasClass('ios-app-store'))) {
+        if (Sound.enabled && !$(e.target).hasClass('ios-app-store')) {
           e.preventDefault();
           return false;
         }
       })
+      /* comment! not used credits
       .bind('mousemove', function(e) {
 
         if (has.mobile || embedding) {
@@ -149,7 +153,7 @@ $(function() {
         showCredits();
         // }
 
-      })
+      })*/
       .bind('keydown', function(e, data) {
 
         if (e.metaKey || e.ctrlKey) {
@@ -265,7 +269,8 @@ $(function() {
       $hint.find('.message').html('Press anywhere on the screen and turn up speakers');
       createMobileUI();
     } else {
-      $credits.css('display', 'block');
+      // comment! credits not used
+      //$credits.css('display', 'block');
       $hint.find('.message').html('Press any key, A to Z or spacebar, and turn up speakers');
     }
 
@@ -288,14 +293,15 @@ $(function() {
     $window.trigger('resize');
 
     _.delay(function() {
-      $('#lobby').fadeOut(triggerLogo);
+      //$('#lobby').fadeOut(triggerLogo);
       if (url.boolean('kiosk') /*|| (window.localStorage && window.localStorage.visited)*/) {
         triggered();
         return;
-      } else if (/merchandise/ig.test(url.hash)) {
+      } 
+      /*else if (/merchandise/ig.test(url.hash)) {
         $('#merchandise-button').trigger('click');
         return;
-      }
+      }*/
       $hint.fadeIn();
       if (window.localStorage) {
         window.localStorage.visited = true;
@@ -500,22 +506,22 @@ $(function() {
 
   }
 
-  function triggerLogo() {
+  // function triggerLogo() {
 
-    if (window.localStorage && window.localStorage.visited) {
-      return;
-    }
+  //   if (window.localStorage && window.localStorage.visited) {
+  //     return;
+  //   }
 
-    trigger('0,9');
-    trigger('2,6');
-    trigger('1,7');
-    trigger('2,1');
+  //   trigger('0,9');
+  //   trigger('2,6');
+  //   trigger('1,7');
+  //   trigger('2,1');
 
-    if (window.localStorage) {
-      window.localStorage.visited = true;
-    }
+  //   if (window.localStorage) {
+  //     window.localStorage.visited = true;
+  //   }
 
-  }
+  // }
 
   function trigger(hash, silent) {
 
@@ -593,10 +599,11 @@ $(function() {
     container.css('top', 0);
   }, 1000);
 
-  function showCredits() {
-    container.css('top', - 64 + 'px');
-    hideCredits();
-  }
+  // comment!
+  // function showCredits() {
+  //   container.css('top', - 64 + 'px');
+  //   hideCredits();
+  // }
 
 });
 
